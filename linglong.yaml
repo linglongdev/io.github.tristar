@@ -1,0 +1,27 @@
+version: "1"
+
+package:
+  id: io.github.tristar
+  name: tristar
+  version: 1.0.0.1
+  kind: app
+  description: |
+    Kirby: Triple Deluxe map viewer
+
+command:
+  - /opt/apps/io.github.tristar/files/bin/tristar
+
+base: org.deepin.foundation/23.0.0
+runtime: org.deepin.Runtime/23.0.1
+
+sources:
+  - kind: git
+    url: https://github.com/wjyrich/tristar.git
+    version: master
+    commit: 67a3a999b3d8172696c2ae422e5dc17d28f8ad80
+
+build: |
+  cd /project/linglong/sources/tristar.git
+  qmake -makefile PREFIX=${PREFIX} LIB_INSTALL_DIR=${PREFIX}/lib/${TRIPLET}
+  make -j$(nproc)
+  make install
